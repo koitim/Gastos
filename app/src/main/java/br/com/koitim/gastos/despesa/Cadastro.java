@@ -1,6 +1,8 @@
 package br.com.koitim.gastos.despesa;
 
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -10,10 +12,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 
+import java.io.Serializable;
+import java.util.Calendar;
 import java.util.List;
 
 import br.com.koitim.gastos.R;
@@ -29,7 +33,7 @@ import br.com.koitim.gastos.model.Fonte;
 import br.com.koitim.gastos.util.DateDialog;
 
 
-public class Cadastro extends Fragment implements View.OnClickListener, AdapterView.OnItemSelectedListener {
+public class Cadastro extends Fragment implements View.OnClickListener, AdapterView.OnItemSelectedListener , DatePickerDialog.OnDateSetListener , Serializable{
 
   private EditText etData;
   private EditText etValor;
@@ -131,6 +135,9 @@ public class Cadastro extends Fragment implements View.OnClickListener, AdapterV
         break;
       case R.id.despesa_et_data:
         DateDialog dateDialog = new DateDialog();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("listener", this);
+        dateDialog.setArguments(bundle);
         dateDialog.show(getFragmentManager(), "testes");
         break;
     }
@@ -186,5 +193,10 @@ public class Cadastro extends Fragment implements View.OnClickListener, AdapterV
   public void onDetach() {
     super.onDetach();
     mListener = null;
+  }
+
+  @Override
+  public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+
   }
 }
