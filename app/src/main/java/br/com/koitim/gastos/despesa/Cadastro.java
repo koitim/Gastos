@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +16,11 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import br.com.koitim.gastos.R;
@@ -55,6 +58,10 @@ public class Cadastro extends Fragment implements View.OnClickListener, AdapterV
 
   private OnDespesaInteractionListener mListener;
 
+  private int diaSelecionado;
+  private int mesSelecionado;
+  private int anoSelecionado;
+
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -85,6 +92,11 @@ public class Cadastro extends Fragment implements View.OnClickListener, AdapterV
     View view =inflater.inflate(R.layout.despesa_cadastro_layout, container, false);
 
     etData = (EditText) view.findViewById(R.id.despesa_et_data);
+    final Calendar c = Calendar.getInstance();
+    int ano = c.get(Calendar.YEAR);
+    int mes = c.get(Calendar.MONTH);
+    int dia = c.get(Calendar.DAY_OF_MONTH);
+    etData.setText(dia + "/" + (mes + 1) + "/" + ano);
     etData.setOnClickListener(this);
 
     etValor = (EditText) view.findViewById(R.id.despesa_et_valor);
@@ -131,6 +143,32 @@ public class Cadastro extends Fragment implements View.OnClickListener, AdapterV
   public void onClick(View view) {
     switch (view.getId()) {
       case R.id.despesa_bt_salvar:
+        boolean ehValido = true;
+        Date data = mListener.validarData(anoSelecionado, mesSelecionado, diaSelecionado);
+        if (data == null) {
+          etData.setError("Data inválida!");
+          ehValido = false;
+        }
+        Float valor = mListener.validarValor(etValor.getText().toString());
+        if (valor == null) {
+          etValor.setError("Valor inválido!");
+        }
+        if (fonteSelecionada == null) {
+        }
+        if (ehValido) {
+          if (mListener.cadastrar(nome, email, senha)) {
+            Toast.makeText(getActivity().getApplicationContext(), R.string.cadastro_ok, Toast.LENGTH_LONG).show();
+            mListener.exibirLogin();
+          } else {
+            Snackbar.make(view,
+                R.string.email_ja_cadastrado,
+                Snackbar.LENGTH_LONG).show();
+          }
+        } else {
+          Snackbar.make(view,
+              R.string.dados_invalidos,
+              Snackbar.LENGTH_LONG).show();
+        }
         // TODO: Criar rotina para validar e gravar o gasto
         break;
       case R.id.despesa_et_data:
@@ -196,7 +234,12 @@ public class Cadastro extends Fragment implements View.OnClickListener, AdapterV
   }
 
   @Override
-  public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-
+  public void onDateSet(DatePicker view, int ano, int mes, int dia) {
+    diaSelecionado = dia;
+    mesSelecionado = mes;
+    anoSelecionado = ano;
+    etData.setText(dia + "/" + (mes + 1) + "/" + ano);
   }
+
+
 }

@@ -130,7 +130,6 @@
                     android:textSize="14sp"/>
                 <EditText
                     android:id="@+id/despesa_et_valor"
-                    android:text="R$ 1.000,00"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"

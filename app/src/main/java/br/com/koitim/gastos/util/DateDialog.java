@@ -24,6 +24,6 @@ public class DateDialog extends DialogFragment {
     int dia = c.get(Calendar.DAY_OF_MONTH);
     Bundle bundle = getArguments();
     DatePickerDialog.OnDateSetListener mListener = (DatePickerDialog.OnDateSetListener) bundle.getSerializable("listener");
-    return null; //DatePickerDialog(getActivity(), mListener, ano, mes, dia);
+    return new DatePickerDialog(getActivity(), mListener, ano, mes, dia);
   }
 }
