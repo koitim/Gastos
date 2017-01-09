@@ -12,11 +12,13 @@ import java.util.List;
 import br.com.koitim.gastos.R;
 import br.com.koitim.gastos.dao.CategoriaDAO;
 import br.com.koitim.gastos.dao.CredorDAO;
+import br.com.koitim.gastos.dao.DespesaDAO;
 import br.com.koitim.gastos.dao.FavorecidoDAO;
 import br.com.koitim.gastos.dao.FonteDAO;
 import br.com.koitim.gastos.interfaces.OnDespesaInteractionListener;
 import br.com.koitim.gastos.model.Categoria;
 import br.com.koitim.gastos.model.Credor;
+import br.com.koitim.gastos.model.Despesa;
 import br.com.koitim.gastos.model.Favorecido;
 import br.com.koitim.gastos.model.Fonte;
 
@@ -82,7 +84,15 @@ public class Principal extends AppCompatActivity implements OnDespesaInteraction
   }
 
   @Override
-  public Float validarValor(String valor) {
-    return Float.parseFloat(valor);
+  public Double validarValor(String valor) {
+    return Double.parseDouble(valor);
+  }
+
+  @Override
+  public boolean cadastrar(Date data, Double valor, Fonte fonte, Categoria categoria, Credor credor, Favorecido favorecido) {
+    DespesaDAO despesaDAO = new DespesaDAO(this);
+    Despesa despesa = new Despesa(data, valor, fonte, categoria, credor, favorecido);
+    despesaDAO.insert(despesa);
+    return true;
   }
 }

@@ -149,27 +149,27 @@ public class Cadastro extends Fragment implements View.OnClickListener, AdapterV
           etData.setError("Data inválida!");
           ehValido = false;
         }
-        Float valor = mListener.validarValor(etValor.getText().toString());
+        Double valor = mListener.validarValor(etValor.getText().toString());
         if (valor == null) {
           etValor.setError("Valor inválido!");
+          ehValido = false;
         }
         if (fonteSelecionada == null) {
+          Toast.makeText(getActivity(), "Favor informar a fonte!", Toast.LENGTH_LONG).show();
+          ehValido = false;
+        } else if (categoriaSelecionada == null) {
+          Toast.makeText(getActivity(), "Favor informar a categoria!", Toast.LENGTH_LONG).show();
+          ehValido = false;
         }
         if (ehValido) {
-          if (mListener.cadastrar(nome, email, senha)) {
-            Toast.makeText(getActivity().getApplicationContext(), R.string.cadastro_ok, Toast.LENGTH_LONG).show();
-            mListener.exibirLogin();
+          if (mListener.cadastrar(data, valor, fonteSelecionada, categoriaSelecionada, credorSelecionado, favorecidoSelecionado)) {
+            Toast.makeText(getActivity().getApplicationContext(), "Despesa cadastrada com sucesso!!", Toast.LENGTH_LONG).show();
           } else {
             Snackbar.make(view,
-                R.string.email_ja_cadastrado,
+                "Ocorreu erro ao cadastrar a despesa!",
                 Snackbar.LENGTH_LONG).show();
           }
-        } else {
-          Snackbar.make(view,
-              R.string.dados_invalidos,
-              Snackbar.LENGTH_LONG).show();
         }
-        // TODO: Criar rotina para validar e gravar o gasto
         break;
       case R.id.despesa_et_data:
         DateDialog dateDialog = new DateDialog();

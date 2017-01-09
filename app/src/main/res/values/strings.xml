@@ -1,12 +1,13 @@
 <resources>
     <string name="app_name">Gastos</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main">Finanças pessoais</string>
 
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_open">Abre navigation drawer</string>
+    <string name="navigation_drawer_close">Fecha navigation drawer</string>
 
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Configurações</string>
+    <string name="nome_app">Finanças pessoais</string>
+    <string name="email_app">coutinho.neto@gmail.com</string>
+    <string name="imagem_app">Imagem do app</string>
 </resources>

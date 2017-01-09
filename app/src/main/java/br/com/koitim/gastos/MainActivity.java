@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity
     fab.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+        Snackbar.make(view, "Substitua com sua ação", Snackbar.LENGTH_LONG)
             .setAction("Action", null).show();
       }
     });
@@ -80,18 +80,22 @@ public class MainActivity extends AppCompatActivity
     // Handle navigation view item clicks here.
     int id = item.getItemId();
 
-    if (id == R.id.nav_camera) {
-      // Handle the camera action
-    } else if (id == R.id.nav_gallery) {
-
-    } else if (id == R.id.nav_slideshow) {
-
-    } else if (id == R.id.nav_manage) {
-
-    } else if (id == R.id.nav_share) {
-
-    } else if (id == R.id.nav_send) {
-
+    switch (id) {
+      case R.id.nav_home:
+        //TODO: Implementar tela inicial
+        break;
+      case R.id.nav_despesa:
+        //TODO: Implementar despesas
+        break;
+      case R.id.nav_receita:
+        //TODO: Implementar receitas
+        break;
+      case R.id.nav_sair:
+        //TODO: Implementar Saida
+        break;
+      default:
+        //TODO: Implementar erro
+        break;
     }
 
     DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

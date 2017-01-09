@@ -20,5 +20,6 @@ public interface OnDespesaInteractionListener {
   List<Credor> getCredores();
   List<Favorecido> getFavorecidos();
   Date validarData(int ano, int mes, int dia);
-  Float validarValor(String valor);
+  Double validarValor(String valor);
+  boolean cadastrar(Date data, Double valor, Fonte fonte, Categoria categoria, Credor credor, Favorecido favorecido);
 }
